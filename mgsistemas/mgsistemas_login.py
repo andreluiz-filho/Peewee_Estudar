@@ -12,22 +12,14 @@ usuario_login = "suporte"
 usuario_senha = "123"
 usuario_senha_encriptada = encripta_senha(usuario_senha)
 
+try:
+	query = Usuario.select().where(Usuario.usuario == usuario_login).get()
 
-query = Usuario.select(Usuario.usuario.in_([usuario_login]))
+	if query.senha == usuario_senha_encriptada:
+		print("Usuario e Senha são Iguais")
 
-print(query.get())
-
-"""
-for i in query:
-	if i.usuario == usuario_login:
-
-		if i.senha == usuario_senha_encriptada:
-			print("Usuario e Senha são Iguais")
-			break
-		else:
-			print("Usuario ou Senha incorreto")
-			break
 	else:
-		print("Usuario ou Senha incorreto")
-		break
-"""
+		print("Usuario ou Senha incorretos")
+
+except:
+	print("Usuario ou Senha incorretos")
