@@ -24,10 +24,10 @@ class Empresa(BaseModel):
 	#endereco = TextField()
 	#pasta_empresa = TextField()
 
-class Usuarios(BaseModel):
+class Usuario(BaseModel):
 	usuario = TextField(unique=True)
 	senha = TextField()
 	empresa = ForeignKeyField(Empresa, backref='usuarios')
 
 
-db.create_tables([Empresa, Usuarios])
+db.create_tables([Empresa, Usuario])

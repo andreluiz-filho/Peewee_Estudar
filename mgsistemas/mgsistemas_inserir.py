@@ -1,5 +1,10 @@
-from mgsistemas_db import Empresa, Usuarios
+from hashlib import sha512
+from mgsistemas_db import db, Empresa, Usuario
+from peewee import fn
 
+@db.func()
+def encripta_senha(senha):
+	return sha512(senha.encode('utf-8')).hexdigest()
 
 
 try:
@@ -11,9 +16,9 @@ except:
 
 
 try:
-	Usuarios.create(
-		usuario="admin",
-		senha="123",
+	Usuario.create(
+		usuario="suporte",
+		senha=fn.encripta_senha('123'),
 		empresa=Empresa.select().where(Empresa.nome=="Empresa Teste").get()
 	)
 except:
